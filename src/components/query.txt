@@ -1,0 +1,9 @@
+
+mutation {
+    register(input:{
+      sEmail: "nisha@gmail.com"
+      sFirstName: "Nisha"
+      sLastName: "Solanki"
+      sPassword: "nisha123"
+    }
+)}
