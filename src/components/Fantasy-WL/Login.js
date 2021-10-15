@@ -1,21 +1,24 @@
 import { useMutation } from '@apollo/client';
 import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom';
 import { Alert, Button, Col, Input, Label, Row } from 'reactstrap';
-import { SIGN_IN } from '../queries';
+import { LOG_IN } from '../../queries';
 
-export const LoginUser = () => {
+export const Login = () => {
 
-  const [Email, setEmail] = useState('')
+  const history = useHistory();
+  const [MobNum, setMobNum] = useState('')
   const [Password, setPassword] = useState('')
   const [Message, setMessage] = useState('');
   const [Error, setError] = useState('')
 
-  const [userLogin, {error, data, loading}] = useMutation(SIGN_IN)
+  const [userLogin, {error, data, loading}] = useMutation(LOG_IN)
 
   useEffect(() => {
     if(data) {
-      setMessage(data.userLogin);
+      // setMessage(data.userLogin);
       localStorage.setItem("gql_token", data.userLogin);
+      history.push('/getmatches');
     }
   }, [data])
 
@@ -24,7 +27,9 @@ export const LoginUser = () => {
   }, [error])
 
   function onSubmitForm(){
-    userLogin({variables: {Email: Email, Password: Password}});
+    if(MobNum && Password){
+      userLogin({variables: {MobNum: MobNum, Password: Password}});
+    }
   }
 
   if(loading) return <p>Loading...</p>
@@ -36,8 +41,8 @@ export const LoginUser = () => {
         <Col></Col>
         <Col>
           <h1>Login</h1>
-          <Label className="mt-3">Email</Label>
-          <Input type="email" value={Email} onChange={e=> setEmail(e.target.value)}></Input>
+          <Label className="mt-3">Mobile Number</Label>
+          <Input type="email" value={MobNum} onChange={e=> setMobNum(e.target.value)}></Input>
           <Label className="mt-3">Password</Label>
           <Input type="password" value={Password} onChange={e=> setPassword(e.target.value)}></Input>
           <Button className="mt-3" onClick={onSubmitForm}>Submit</Button>

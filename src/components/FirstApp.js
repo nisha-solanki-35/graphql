@@ -22,7 +22,7 @@ import { CREATE_USER } from '../queries';
 //     }
 // `;
 
-export const FirstApp = ({ID}) => {
+export const FirstApp = () => {
 
   const [Email, setEmail] = useState('')
   const [FirstName, setFirstName] = useState('')
@@ -56,14 +56,14 @@ export const FirstApp = ({ID}) => {
         <Col></Col>
         <Col>
           <h1>Register</h1>
-          <Label className="mt-3">Email</Label>
-          <Input type="email" value={Email} onChange={e=> setEmail(e.target.value)}></Input>
-          <Label className="mt-3">First Name</Label>
-          <Input type="text" value={FirstName} onChange={e=> setFirstName(e.target.value)}></Input>
-          <Label className="mt-3">Last Name</Label>
-          <Input type="text" value={LastName} onChange={e=> setLastName(e.target.value)}></Input>
-          <Label className="mt-3">Password</Label>
-          <Input type="password" value={Password} onChange={e=> setPassword(e.target.value)}></Input>
+          <Label for="Email" className="mt-3">Email</Label>
+          <Input type="email" name="Email" value={Email} onChange={e=> setEmail(e.target.value)}></Input>
+          <Label for="FirstName" className="mt-3">First Name</Label>
+          <Input type="text" name="FirstName" value={FirstName} onChange={e=> setFirstName(e.target.value)}></Input>
+          <Label for="LastName" className="mt-3">Last Name</Label>
+          <Input type="text" name="LastName" value={LastName} onChange={e=> setLastName(e.target.value)}></Input>
+          <Label for="Password" className="mt-3">Password</Label>
+          <Input type="password" name="Password" value={Password} onChange={e=> setPassword(e.target.value)}></Input>
           <Button className="mt-3" onClick={onSubmitForm}>Submit</Button>
           {Message && <Alert className="mt-4" color="primary">{Message}</Alert>}
           {Error && <Alert className="mt-4" color="danger">{Error}</Alert>}
